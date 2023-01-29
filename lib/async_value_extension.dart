@@ -42,6 +42,7 @@ extension AsyncValueX<T> on AsyncValue<T> {
     );
   }
 
+  /// エラー時にスナックバーを表示する
   void showSnackbarOnError(
     BuildContext context, {
     String defaultMessage = "エラーが発生しました",

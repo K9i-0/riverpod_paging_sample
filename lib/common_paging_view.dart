@@ -5,15 +5,28 @@ import 'package:riverpod_paging_sample/paging_async_notifier.dart';
 import 'package:riverpod_paging_sample/paging_data.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+/// ページングのための汎用Widget
+///
+/// 主な機能
+/// 1. データがある場合は、[contentBuilder]で作ったWidgetを表示する
+/// 2. 1ページの読み込み中は、CircularProgressIndicatorを表示する
+/// 3. 1ページ目のエラー時は、エラーWidgetを表示する
+/// 4. エラー時にスナックバーでエラーを表示する
+/// 5. 最後のアイテムが表示されたら、次のページを読み込む
+/// 6. Pull to Refreshに対応する
 class CommonPagingView<
     N extends PagingAsyncNotifier<D>,
     D extends PagingData<I>,
     I extends PagingDataItem> extends HookConsumerWidget {
+  /// [PagingAsyncNotifier]を実装したクラスのProviderを指定する
   final AutoDisposeAsyncNotifierProvider<N, D> provider;
-  final Widget Function(D data, Widget? endItem) data;
-  const CommonPagingView(
-    this.provider, {
-    required this.data,
+
+  /// データがある場合に表示するWidgetを返す関数を指定する
+  /// [endItem]は最後に表示されたアイテムが表示されたことを検知するためのWidgetで、non nullの時にリストの最後に表示する
+  final Widget Function(D data, Widget? endItem) contentBuilder;
+  const CommonPagingView({
+    required this.provider,
+    required this.contentBuilder,
     super.key,
   });
 
@@ -28,7 +41,7 @@ class CommonPagingView<
           data: (data, hasError) {
             return RefreshIndicator(
               onRefresh: () => ref.refresh(provider.future),
-              child: this.data(
+              child: contentBuilder(
                 data,
                 // 次のページがあり、かつエラーがない場合に、最後の要素に達したことを検知するためのWidgetを表示する
                 data.hasMore && !hasError

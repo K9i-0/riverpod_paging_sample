@@ -3,14 +3,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:riverpod_paging_sample/common_paging_view.dart';
 import 'package:riverpod_paging_sample/sample/page_based_sample_notifier.dart';
 
+/// Page based Pagingのサンプル
 class PageBasedView extends HookWidget {
   const PageBasedView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return CommonPagingView(
-      pageBasedSampleNotifier,
-      data: (data, endItem) => ListView.builder(
+      provider: pageBasedSampleNotifier,
+      contentBuilder: (data, endItem) => ListView.builder(
         key: const PageStorageKey('pageBasedView'),
         itemCount: data.items.length + (endItem != null ? 1 : 0),
         itemBuilder: (context, index) {
