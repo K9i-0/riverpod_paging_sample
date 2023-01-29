@@ -5,6 +5,12 @@ import 'package:riverpod_paging_sample/paging_data.dart';
 abstract class PagingAsyncNotifier<T extends PagingData>
     extends AutoDisposeAsyncNotifier<T> {
   Future<void> loadNext();
+
+  // 状態を破棄して再読み込みする
+  void forceRefresh() {
+    state = AsyncLoading<T>();
+    ref.invalidateSelf();
+  }
 }
 
 /// PageBasedPagingを実装するためのNotifier
