@@ -8,20 +8,20 @@ class PageBasedView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scrollController = useScrollController();
-
     return CommonPagingView(
       pageBasedSampleNotifier,
-      scrollController: scrollController,
-      data: (data) => ListView(
-        controller: scrollController,
-        children: data.items
-            .map(
-              (e) => ListTile(
-                title: Text(e.name),
-              ),
-            )
-            .toList(),
+      data: (data, endItem) => ListView.builder(
+        key: const PageStorageKey('pageBasedView'),
+        itemCount: data.items.length + (endItem != null ? 1 : 0),
+        itemBuilder: (context, index) {
+          if (endItem != null && index == data.items.length) {
+            return endItem;
+          }
+
+          return ListTile(
+            title: Text(data.items[index].name),
+          );
+        },
       ),
     );
   }

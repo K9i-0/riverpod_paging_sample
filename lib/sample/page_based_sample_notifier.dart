@@ -27,6 +27,7 @@ class PageBasedSampleNotifier extends PageBasedPagingAsyncNotifier<SampleItem> {
 
   @override
   Future<PageBasedSampleState> fetchNext(int page) async {
+    print('fetchNext($page)');
     final res =
         await ref.read(sampleRepositoryProvider).getByPage(page: page + 1);
     ref.keepAlive();
