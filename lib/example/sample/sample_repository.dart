@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:random_name_generator/random_name_generator.dart';
 import 'package:riverpod_paging_sample/example/sample/sample_item.dart';
+import 'package:riverpod_paging_sample/example/settings/settings_notifier.dart';
 
 final sampleRepositoryProvider = Provider.autoDispose<SampleRepository>(
   (ref) => SampleRepository(ref),
@@ -15,6 +16,13 @@ class SampleRepository {
     int page = 1,
   }) async {
     await Future.delayed(const Duration(seconds: 1));
+
+    if (ref.read(settingsNotifierProvider).forceFirstPageError && page == 1) {
+      throw Exception('1ページ目強制エラー');
+    }
+    if (ref.read(settingsNotifierProvider).forceNextPageError && page > 1) {
+      throw Exception('2ページ目以降強制エラー');
+    }
 
     final items = _db.sublist((page - 1) * 30, page * 30);
     return SamplePageResult(
@@ -35,6 +43,13 @@ class SampleRepository {
   }) async {
     await Future.delayed(const Duration(seconds: 1));
 
+    if (ref.read(settingsNotifierProvider).forceFirstPageError && offset == 0) {
+      throw Exception('1ページ目強制エラー');
+    }
+    if (ref.read(settingsNotifierProvider).forceNextPageError && offset > 0) {
+      throw Exception('2ページ目以降強制エラー');
+    }
+
     final items = _db.sublist(offset, offset + 50);
 
     return SampleOffsetResult(
@@ -54,6 +69,15 @@ class SampleRepository {
     String? nextCursor,
   }) async {
     await Future.delayed(const Duration(seconds: 1));
+
+    if (ref.read(settingsNotifierProvider).forceFirstPageError &&
+        nextCursor == null) {
+      throw Exception('1ページ目強制エラー');
+    }
+    if (ref.read(settingsNotifierProvider).forceNextPageError &&
+        nextCursor != null) {
+      throw Exception('2ページ目以降強制エラー');
+    }
 
     final items = _db.sublist(
         int.parse(nextCursor ?? '0'), int.parse(nextCursor ?? '0') + 50);
