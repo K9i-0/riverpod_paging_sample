@@ -21,6 +21,7 @@ class PageBasedView extends HookWidget {
 
           return ListTile(
             title: Text(data.items[index].name),
+            subtitle: Text(data.items[index].id),
           );
         },
       ),

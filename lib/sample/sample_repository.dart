@@ -1,44 +1,100 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:random_name_generator/random_name_generator.dart';
 import 'package:riverpod_paging_sample/sample/sample_item.dart';
 
 final sampleRepositoryProvider = Provider.autoDispose<SampleRepository>(
   (ref) => const SampleRepository(),
 );
 
+/// テスト用のダミーデータを返すRepository
 class SampleRepository {
   const SampleRepository();
 
-  Future<SampleResult> getByPage({
+  Future<SamplePageResult> getByPage({
     int page = 1,
   }) async {
     await Future.delayed(const Duration(seconds: 1));
 
-    return _db[page - 1];
+    final items = _db.sublist((page - 1) * 30, page * 30);
+    return SamplePageResult(
+      items: items //
+          .map(
+            (record) => SampleItem(
+              id: record.id.toString(),
+              name: record.name,
+            ),
+          )
+          .toList(),
+      hasMore: _db.length > page * 30,
+    );
   }
 
-  Future<SampleResult> getByOffset({
+  Future<SampleOffsetResult> getByOffset({
     int offset = 0,
   }) async {
     await Future.delayed(const Duration(seconds: 1));
 
-    return _db[offset ~/ 30];
+    final items = _db.sublist(offset, offset + 50);
+
+    return SampleOffsetResult(
+      items: items //
+          .map(
+            (record) => SampleItem(
+              id: record.id.toString(),
+              name: record.name,
+            ),
+          )
+          .toList(),
+      hasMore: _db.length > offset + 50,
+    );
   }
 
-  Future<SampleResult> getByCursor({
+  Future<SampleCursorResult> getByCursor({
     String? nextCursor,
   }) async {
     await Future.delayed(const Duration(seconds: 1));
 
-    if (nextCursor == null) {
-      return _db.first;
-    } else {
-      return _db[int.parse(nextCursor)];
-    }
+    final items = _db.sublist(
+        int.parse(nextCursor ?? '0'), int.parse(nextCursor ?? '0') + 50);
+    final newNextCursor = (int.parse(nextCursor ?? '0') + 50).toString();
+    final exist = _db.length > int.parse(newNextCursor);
+
+    return SampleCursorResult(
+      items: items //
+          .map(
+            (record) => SampleItem(
+              id: record.id.toString(),
+              name: record.name,
+            ),
+          )
+          .toList(),
+      nextCursor: exist ? newNextCursor : null,
+    );
   }
 }
 
-class SampleResult {
-  const SampleResult({
+class SamplePageResult {
+  const SamplePageResult({
+    required this.items,
+    required this.hasMore,
+  });
+
+  final List<SampleItem> items;
+  final bool hasMore;
+}
+
+class SampleOffsetResult {
+  const SampleOffsetResult({
+    required this.items,
+    required this.hasMore,
+  });
+
+  final List<SampleItem> items;
+  final bool hasMore;
+}
+
+class SampleCursorResult {
+  const SampleCursorResult({
     required this.items,
     required this.nextCursor,
   });
@@ -47,55 +103,22 @@ class SampleResult {
   final String? nextCursor;
 }
 
-final _db = [
-  SampleResult(
-    items: List.generate(
-      30,
-      (index) => SampleItem(
-        id: '$index',
-        name: 'name${index + 1}',
-      ),
-    ),
-    nextCursor: '1',
+class _Record {
+  const _Record({
+    required this.id,
+    required this.name,
+  });
+
+  final int id;
+  final String name;
+}
+
+final _randomNames = RandomNames(Zone.us);
+
+final _db = List.generate(
+  150,
+  (index) => _Record(
+    id: index + 1,
+    name: _randomNames.fullName(),
   ),
-  SampleResult(
-    items: List.generate(
-      30,
-      (index) => SampleItem(
-        id: '${index + 30}',
-        name: 'name${index + 31}',
-      ),
-    ),
-    nextCursor: '2',
-  ),
-  SampleResult(
-    items: List.generate(
-      30,
-      (index) => SampleItem(
-        id: '${index + 60}',
-        name: 'name${index + 61}',
-      ),
-    ),
-    nextCursor: '3',
-  ),
-  SampleResult(
-    items: List.generate(
-      30,
-      (index) => SampleItem(
-        id: '${index + 90}',
-        name: 'name${index + 91}',
-      ),
-    ),
-    nextCursor: '4',
-  ),
-  SampleResult(
-    items: List.generate(
-      30,
-      (index) => SampleItem(
-        id: '${index + 120}',
-        name: 'name${index + 121}',
-      ),
-    ),
-    nextCursor: null,
-  ),
-];
+);

@@ -21,7 +21,7 @@ class PageBasedSampleNotifier extends PageBasedPagingAsyncNotifier<SampleItem> {
       items: res //
           .items,
       page: 0,
-      hasMore: true,
+      hasMore: res.hasMore,
     );
   }
 
@@ -35,7 +35,7 @@ class PageBasedSampleNotifier extends PageBasedPagingAsyncNotifier<SampleItem> {
       items: res //
           .items,
       page: page + 1,
-      hasMore: true,
+      hasMore: res.hasMore,
     );
   }
 }
