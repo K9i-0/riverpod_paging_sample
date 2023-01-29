@@ -59,8 +59,16 @@ class CommonPagingView<
           ),
           // １ページ目のエラー
           error: (e, st) => Center(
-            // TODO(K9i-0): 仮実装リトライ
-            child: Text(e.toString()),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: () => ref.read(provider.notifier).forceRefresh(),
+                  icon: const Icon(Icons.refresh),
+                ),
+                Text(e.toString()),
+              ],
+            ),
           ),
           // 2ページ目以降のエラーでデータを優先する
           skipErrorOnHasValue: true,
