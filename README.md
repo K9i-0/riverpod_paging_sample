@@ -14,6 +14,7 @@ https://user-images.githubusercontent.com/90010509/215314653-0df156a6-ef7a-4c4a-
 以下の２ステップで、でも動画のようなページング画面が実装できます。
 
 ## Notifierを定義
+AsyncNotifierにページング用機能を追加したPageBasedPagingAsyncNotifierを継承したNotifierを定義します。
 ```
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_paging_sample/example/sample/sample_item.dart';
@@ -59,6 +60,7 @@ class PageBasedSampleNotifier extends PageBasedPagingAsyncNotifier<SampleItem> {
 ```
 
 ## 汎用Widgetを使う
+CommonPagingViewに先ほど定義したpageBasedSampleNotifierProviderを渡します。
 ```
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
