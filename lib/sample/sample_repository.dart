@@ -3,12 +3,13 @@ import 'package:random_name_generator/random_name_generator.dart';
 import 'package:riverpod_paging_sample/sample/sample_item.dart';
 
 final sampleRepositoryProvider = Provider.autoDispose<SampleRepository>(
-  (ref) => const SampleRepository(),
+  (ref) => SampleRepository(ref),
 );
 
 /// テスト用のダミーデータを返すRepository
 class SampleRepository {
-  const SampleRepository();
+  final Ref ref;
+  const SampleRepository(this.ref);
 
   Future<SamplePageResult> getByPage({
     int page = 1,
