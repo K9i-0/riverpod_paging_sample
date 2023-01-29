@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 // ignore: unused_import, directives_ordering
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 part 'paging_data.freezed.dart';
 
@@ -108,10 +107,4 @@ extension CursorBasedPagingDataX<T extends PagingDataItem>
           .toList(growable: false),
     );
   }
-}
-
-extension AsyncValuePagingDataX<T extends PagingDataItem>
-    on AsyncValue<PagingData<T>> {
-  // 2ページ目以降のデータをロード中かどうか
-  bool get isNextPageLoading => hasValue && isLoading;
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_paging_sample/sample/sample_screen.dart';
+import 'package:riverpod_paging_sample/example/sample/sample_screen.dart';
 
 void main() {
   runApp(

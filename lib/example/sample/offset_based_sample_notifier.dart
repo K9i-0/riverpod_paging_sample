@@ -1,8 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_paging_sample/example/sample/sample_item.dart';
+import 'package:riverpod_paging_sample/example/sample/sample_repository.dart';
 import 'package:riverpod_paging_sample/paging_async_notifier.dart';
 import 'package:riverpod_paging_sample/paging_data.dart';
-import 'package:riverpod_paging_sample/sample/sample_item.dart';
-import 'package:riverpod_paging_sample/sample/sample_repository.dart';
 
 final offsetBasedSampleNotifier = AsyncNotifierProvider.autoDispose<
     OffsetBasedSampleNotifier, OffsetBasedSampleState>(

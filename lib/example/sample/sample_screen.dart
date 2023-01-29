@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_paging_sample/sample/cursor_based_sample_notifier.dart';
-import 'package:riverpod_paging_sample/sample/cursor_based_view.dart';
-import 'package:riverpod_paging_sample/sample/offset_based_sample_notifier.dart';
-import 'package:riverpod_paging_sample/sample/offset_based_view.dart';
-import 'package:riverpod_paging_sample/sample/page_based_sample_notifier.dart';
-import 'package:riverpod_paging_sample/sample/page_based_view.dart';
+import 'package:riverpod_paging_sample/example/sample/cursor_based_sample_notifier.dart';
+import 'package:riverpod_paging_sample/example/sample/cursor_based_view.dart';
+import 'package:riverpod_paging_sample/example/sample/offset_based_sample_notifier.dart';
+import 'package:riverpod_paging_sample/example/sample/offset_based_view.dart';
+import 'package:riverpod_paging_sample/example/sample/page_based_sample_notifier.dart';
+import 'package:riverpod_paging_sample/example/sample/page_based_view.dart';
+import 'package:riverpod_paging_sample/example/settings/settings_sheet.dart';
 
 class SampleScreen extends HookConsumerWidget {
   const SampleScreen({super.key});
@@ -31,7 +32,12 @@ class SampleScreen extends HookConsumerWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             tooltip: '設定',
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => const SettingsSheet(),
+              );
+            },
           ),
         ],
         bottom: TabBar(

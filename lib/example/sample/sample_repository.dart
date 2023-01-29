@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:random_name_generator/random_name_generator.dart';
-import 'package:riverpod_paging_sample/sample/sample_item.dart';
+import 'package:riverpod_paging_sample/example/sample/sample_item.dart';
 
 final sampleRepositoryProvider = Provider.autoDispose<SampleRepository>(
   (ref) => SampleRepository(ref),

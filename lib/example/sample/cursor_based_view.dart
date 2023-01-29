@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:riverpod_paging_sample/common_paging_view.dart';
-import 'package:riverpod_paging_sample/sample/page_based_sample_notifier.dart';
+import 'package:riverpod_paging_sample/example/sample/cursor_based_sample_notifier.dart';
 
-/// Page based Pagingのサンプル
-class PageBasedView extends HookWidget {
-  const PageBasedView({super.key});
+/// Cursor based Pagingのサンプル
+class CursorBasedView extends StatelessWidget {
+  const CursorBasedView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return CommonPagingView(
-      provider: pageBasedSampleNotifier,
+      provider: cursorBasedSampleNotifier,
       contentBuilder: (data, endItem) => ListView.builder(
-        key: const PageStorageKey('pageBasedView'),
+        key: const PageStorageKey('cursorBasedView'),
         itemCount: data.items.length + (endItem != null ? 1 : 0),
         itemBuilder: (context, index) {
           if (endItem != null && index == data.items.length) {
