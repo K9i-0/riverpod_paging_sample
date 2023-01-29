@@ -9,7 +9,7 @@ class CursorBasedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonPagingView(
-      provider: cursorBasedSampleNotifier,
+      provider: cursorBasedSampleNotifierProvider,
       contentBuilder: (data, endItem) => ListView.builder(
         key: const PageStorageKey('cursorBasedView'),
         itemCount: data.items.length + (endItem != null ? 1 : 0),

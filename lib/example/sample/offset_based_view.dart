@@ -9,7 +9,7 @@ class OffsetBasedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonPagingView(
-      provider: offsetBasedSampleNotifier,
+      provider: offsetBasedSampleNotifierProvider,
       contentBuilder: (data, endItem) => ListView.builder(
         key: const PageStorageKey('offsetBasedView'),
         itemCount: data.items.length + (endItem != null ? 1 : 0),

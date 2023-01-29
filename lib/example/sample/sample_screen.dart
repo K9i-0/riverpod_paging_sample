@@ -24,9 +24,13 @@ class SampleScreen extends HookConsumerWidget {
             icon: const Icon(Icons.refresh),
             tooltip: '強制リフレッシュ',
             onPressed: () {
-              ref.read(pageBasedSampleNotifier.notifier).forceRefresh();
-              ref.read(offsetBasedSampleNotifier.notifier).forceRefresh();
-              ref.read(cursorBasedSampleNotifier.notifier).forceRefresh();
+              ref.read(pageBasedSampleNotifierProvider.notifier).forceRefresh();
+              ref
+                  .read(offsetBasedSampleNotifierProvider.notifier)
+                  .forceRefresh();
+              ref
+                  .read(cursorBasedSampleNotifierProvider.notifier)
+                  .forceRefresh();
             },
           ),
           IconButton(

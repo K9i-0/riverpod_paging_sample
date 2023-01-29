@@ -10,7 +10,7 @@ class PageBasedView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return CommonPagingView(
-      provider: pageBasedSampleNotifier,
+      provider: pageBasedSampleNotifierProvider,
       contentBuilder: (data, endItem) => ListView.builder(
         key: const PageStorageKey('pageBasedView'),
         itemCount: data.items.length + (endItem != null ? 1 : 0),

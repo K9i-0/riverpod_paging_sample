@@ -4,7 +4,7 @@ import 'package:riverpod_paging_sample/example/sample/sample_repository.dart';
 import 'package:riverpod_paging_sample/paging_async_notifier.dart';
 import 'package:riverpod_paging_sample/paging_data.dart';
 
-final pageBasedSampleNotifier = AsyncNotifierProvider.autoDispose<
+final pageBasedSampleNotifierProvider = AsyncNotifierProvider.autoDispose<
     PageBasedSampleNotifier, PageBasedSampleState>(
   () => PageBasedSampleNotifier(),
 );
