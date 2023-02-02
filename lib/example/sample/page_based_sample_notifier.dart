@@ -12,6 +12,7 @@ final pageBasedSampleNotifierProvider = AsyncNotifierProvider.autoDispose<
 typedef PageBasedSampleState = PageBasedPagingData<SampleItem>;
 
 class PageBasedSampleNotifier extends PageBasedPagingAsyncNotifier<SampleItem> {
+  /// １ページ目の取得処理
   @override
   Future<PageBasedSampleState> build() async {
     final res = await ref.read(sampleRepositoryProvider).getByPage();
@@ -25,6 +26,8 @@ class PageBasedSampleNotifier extends PageBasedPagingAsyncNotifier<SampleItem> {
     );
   }
 
+  /// 2ページ目以降の取得処理
+  /// エラーハンドリングなどはPageBasedPagingAsyncNotifier側でよしなに行われるので、ここでは取得処理のみを記述する
   @override
   Future<PageBasedSampleState> fetchNext(int page) async {
     final res =
