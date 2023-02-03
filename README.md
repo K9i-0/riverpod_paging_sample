@@ -102,3 +102,5 @@ class PageBasedView extends HookWidget {
 https://zapp.run/github/K9i-0/riverpod_paging_sample
 
 # 解説記事
+
+https://zenn.dev/k9i/articles/b8c333e1bb8b9b
