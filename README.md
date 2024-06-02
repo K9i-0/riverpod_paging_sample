@@ -1,3 +1,9 @@
+# 非推奨
+
+このリポジトリは非推奨です。以下のriverpod_generatorに対応した新しいリポジトリを使ってください。こちらはパッケージとしても公開しています。
+
+https://github.com/K9i-0/riverpod_paging_utils
+
 # riverpod_paging_sample
 
 - Riverpodを使って汎用的なページング実装を行うサンプルです。
